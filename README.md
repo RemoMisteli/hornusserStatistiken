@@ -1,4 +1,4 @@
-# hornusserstatistiven2
+# hornusserstatistiken
 
 ## Project setup
 ```

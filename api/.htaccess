@@ -1,0 +1,8 @@
+# Turn rewrite engine on
+Options +FollowSymlinks
+RewriteEngine on
+
+# map neat URL to internal URL
+RewriteRule ^api/([a-zA-Z\-]+)/?$   index.php?ressource=$1 [nc,qsa]
+RewriteRule ^api/([a-zA-Z\-]+)/([0-9\-]+)/?$   index.php?ressource=$1&id=$2 [nc,qsa]
+# RewriteRule ^api/([a-zA-Z]+)/([a-zA-Z]+)/?$   index.php?rsesource=$1&action=$2 [nc,qsa]
