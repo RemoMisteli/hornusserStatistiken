@@ -1,9 +1,6 @@
 <?php
 
 include_once("dbUtils.php");
-include_once("comonValidatePattern.php");
-include_once("authenticationGeneral.php");
-
 
 abstract class resource extends dbUtils {
 

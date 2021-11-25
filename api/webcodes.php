@@ -21,10 +21,9 @@ class webcodes extends resource {
 
 	public function insert() {
 
-		$sql = "INSERT INTO `webcodes`(`webcode`, `vereinsname`) VALUES (".$this->data->webcode.",".$this->data->vereinsname.")";
+		$sql = "INSERT INTO `webcodes`(`webcode`, `vereinsname`) VALUES ('".str_replace("'","",$this->data->webcode)."','".str_replace("'","",$this->data->vereinsname)."')";
 		dbUtils::sqlQuery($sql);
-		$result = dbUtils::sqlSelect("select sid from schueler where id='" . $this->data->id . "'");
-		return dbUtils::formatMessage(200, $result);
+		return dbUtils::formatMessage(200, "Done");
 	}
 
 
