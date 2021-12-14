@@ -12,7 +12,7 @@ let hgutil = {
                     selectIndex = 0;
                 }
                 
-                var counter = 0;debugger
+                var counter = 0;
                 objects.forEach(function (o) {
                     var option = document.createElement("option");
                     option.text = o;

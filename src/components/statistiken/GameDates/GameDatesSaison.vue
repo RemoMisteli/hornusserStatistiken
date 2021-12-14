@@ -48,8 +48,8 @@
 
 <script lang="js">
 import { onMounted,ref,  } from "vue";
-import List from "./scripts/List.js";
-import hgutil from "./scripts/hgutil.js";
+import List from "../scripts/List.js";
+import hgutil from "../scripts/hgutil.js";
 
 
 export default {

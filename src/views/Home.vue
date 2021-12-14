@@ -1,7 +1,7 @@
 <template>
   <StatistikenHeader @change="haderUpdate()" ref="header" />
 
-  <GameOverview :webcode="webcode" ></GameOverview>
+  <GameOverview class="statGrupe" :webcode="webcode" ></GameOverview>
 </template>
 
 <script lang="ts">
@@ -43,3 +43,8 @@ export default defineComponent({
   },
 });
 </script>
+<style scoped>
+.statGrupe{
+  margin-top: 30px;
+}
+</style>
