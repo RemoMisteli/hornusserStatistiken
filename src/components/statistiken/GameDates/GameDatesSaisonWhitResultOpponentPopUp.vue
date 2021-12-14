@@ -1,5 +1,5 @@
-
 <template>
+
 
 <select id="hg_teamSelect" size="3" multiple></select>
 <select id="hg_jahrSelect"></select>
@@ -69,6 +69,7 @@
 </table>
 
 
+
 </template>
 
 <script lang="js">
@@ -80,7 +81,7 @@ import tingle from "../scripts/tingle.js";
 
 
 export default {
-  name: "GameDatesSaisonWhitResultNoOpponentPopUp",
+  name: "GameDatesSaisonWhitResultOpponentPopUp",
   props: ["webcode"],
   watch: { 
       	webcode: function(newVal, oldVal) { // watch it 
@@ -102,6 +103,7 @@ function loadStatistik(){
 		if (!club) {
 		  club = 'test';
 		}
+		
 		hgutil.loadSelectFromArray('https://www.hgverwaltung.ch/api/1/' + club + '/spiele/jahre', 'hg_jahrSelect', true, getData);
 		hgutil.loadSelectFromArray('https://www.hgverwaltung.ch/api/1/' + club + '/mannschaften?spiele=true', 'hg_teamSelect', true, getData);
 
@@ -183,8 +185,6 @@ function loadStatistik(){
 							var atag = atags[j];
 							var sid = spielId;
 							atag.addEventListener("click", function () {
-								var gegner = atag.dataset.gegner;
-
 								var modal = new tingle.modal({
 									footer: false,
 									stickyFooter: false,
@@ -192,7 +192,7 @@ function loadStatistik(){
 									closeLabel: "Schliessen",
 								});
 
-								showDetail(modal, sid, gegner == '1');
+								showDetail(modal, sid);
 
 							});
 						})();
@@ -201,29 +201,19 @@ function loadStatistik(){
 			}
 		}
 
-		function showDetail(modal, spielId, gegner) {
-			var gegnerQuery = '';
-			if (gegner) {
-				gegnerQuery = '?gegner=1';
-			}
-
-			var url = 'https://www.hgverwaltung.ch/api/1/' + club + '/spiel/' + spielId + gegnerQuery;
+		function showDetail(modal, spielId) {
+			var url = 'https://www.hgverwaltung.ch/api/1/' + club + '/spiel/' + spielId + '?gegner=1';
 
 			fetch(url).then(function (response) {
 				return response.json();
 			}).then(function (result) {
-				modal.setContent(createDetailHtml(result, gegner));
+				modal.setContent(createDetailHtml(result));
 				modal.open();
 			});
 		}
 
-		function createDetailHtml(result, gegner) {
+		function createDetailHtml(result) {
 			var html = [];
-
-			var spielerProperty = 'spieler';
-			if (gegner) {
-				spielerProperty = 'gegnerSpieler';
-			}
 
 			var d = result.datum;
 
@@ -277,38 +267,49 @@ function loadStatistik(){
 
 			html.push('<div id="hg_bericht">' + map.hg_bericht + '</div>');
 
-			if (!result[spielerProperty] || result[spielerProperty].len === 0) {
+			if (!result.spieler || result.spieler.len === 0) {
+				html.push('</div>');
 				return html.join('');
 			}
 
-			html.push('<table id="hg_spieler">');
-			html.push('<thead>');
-			html.push('<tr id="hg_spieler_header">');
+			html.push(createPunkte(result, 'spieler', ''));
+			if (result.gegnerSpieler) {
+				html.push(createPunkte(result, 'gegnerSpieler', '_g'));
+			}
+			html.push('</div>');
+
+
+			return html.join('');
+		}
+
+		function createPunkte(result, spielerProperty, postfix) {
+			var code = [];
+			code.push('<table id="hg_spieler' + postfix + '">');
+			code.push('<thead>');
+			code.push('<tr id="hg_spieler_header' + postfix + '">');
 
 
 			// Header			
-			html.push('<th class="reihenfolge hg_number">#</th>');
-			html.push('<th>Name</th>');
-			html.push('<th>Vorname</th>');
+			code.push('<th class="reihenfolge hg_number">#</th>');
+			code.push('<th>Name</th>');
+			code.push('<th>Vorname</th>');
 
 			for (var r = 0; r < result.anzahlRies; r++) {
-				html.push('<th class="hg_number">' + (r + 1) + '</th>');
+				code.push('<th class="hg_number">' + (r + 1) + '</th>');
 			}
 
-			html.push('<th class="hg_number">Total</th>');
+			code.push('<th class="hg_number">Total</th>');
 
 			if (result.meisterschaft) {
-				html.push('<th class="hg_number">RP</th>');
+				code.push('<th class="hg_number">RP</th>');
 			}
 			if (result.fest) {
-				html.push('<th>Ausz.</th>');
+				code.push('<th>Ausz.</th>');
 			}			
 
-			html.push('</tr>');
-			html.push('</thead>');
-			html.push('<tbody>');
-
-
+			code.push('</tr>');
+			code.push('</thead>');
+			code.push('<tbody>');
 
 			// Spieler
 			var spieler = [];
@@ -318,10 +319,10 @@ function loadStatistik(){
 				}
 			});
 
-			Array.prototype.push.apply(html, spieler);
+			Array.prototype.push.apply(code, spieler);
 
-			html.push('</tbody>');
-			html.push('<tfoot>');
+			code.push('</tbody>');
+			code.push('<tfoot>');
 
 
 			// Total Row
@@ -339,23 +340,23 @@ function loadStatistik(){
 				}
 			});
 
-			html.push('<tr class="total">');
-			html.push('<td colspan="3"></td>');
+			code.push('<tr class="total">');
+			code.push('<td colspan="3"></td>');
 
 			for (var row = 0; row < result.anzahlRies; row++) {
-				html.push('<td class="hg_number">' + totals[row] + '</td>');
+				code.push('<td class="hg_number">' + totals[row] + '</td>');
 			}
-			html.push('<td class="hg_number">' + grandeTotal + '</td>');
-			html.push('</tr>');
+			code.push('<td class="hg_number">' + grandeTotal + '</td>');
+			code.push('</tr>');
 
 
-			html.push('</tfoot>');
-			html.push('</table>');
+			code.push('</tfoot>');
+			code.push('</table>');
 
 
 			// Ueberzaehlige Spieler
-			html.push('<table id="hg_ueber_spieler">');
-			html.push('<tbody>');
+			code.push('<table id="hg_ueber_spieler">');
+			code.push('<tbody>');
 
 			var ueberSpieler = [];
 			result[spielerProperty].forEach(function (row) {
@@ -364,13 +365,12 @@ function loadStatistik(){
 				}
 			});
 
-			Array.prototype.push.apply(html, ueberSpieler);
+			Array.prototype.push.apply(code, ueberSpieler);
 
-			html.push('</tbody>');
-			html.push('</table>');
-			html.push('</div>');
+			code.push('</tbody>');
+			code.push('</table>');
 
-			return html.join('');
+			return code.join('');
 		}
 
 		function createSpielerRow(result, spieler) {
@@ -548,25 +548,30 @@ function loadStatistik(){
 	}
 
 	#hg_spieler_header th,
-	#hg_header th {
+	#hg_header th,
+	#hg_spieler_header_g th {
 		text-align: left;
 	}
 
 	#hg_spieler_header th.hg_number,
-	#hg_header th.hg_number {
+	#hg_header th.hg_number,
+	#hg_spieler_header_g th.hg_number {
 		text-align: right;
 		padding-right: 3px;
 	}
 
-	#hg_spieler {
+	#hg_spieler,
+	#hg_spieler_g {
 		margin-top: 20px;
 	}
 
-	#hg_spieler tfoot {
+	#hg_spieler tfoot,
+	#hg_spieler_g tfoot {
 		line-height: 2.2em;
 	}
 
-	#hg_spieler thead {
+	#hg_spieler thead,
+	#hg_spieler_g thead {
 		line-height: 2.2em;
 	}
 
@@ -614,7 +619,7 @@ function loadStatistik(){
 		color: black;
 	}
 	/*]]>*/
-</style>
+</style>>
 <style >
 .tingle-modal *{box-sizing:border-box}.tingle-modal{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1000;display:flex;visibility:hidden;flex-direction:column;align-items:center;overflow:hidden;-webkit-overflow-scrolling:touch;background:rgba(0,0,0,.85);opacity:0;-webkit-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer}.tingle-modal--confirm .tingle-modal-box{text-align:center}.tingle-modal--noOverlayClose{cursor:default}.tingle-modal--noClose .tingle-modal__close{display:none}.tingle-modal__close{position:fixed;top:2rem;right:2rem;z-index:1000;padding:0;width:2rem;height:2rem;border:none;background-color:transparent;color:#fff;cursor:pointer}.tingle-modal__close svg *{fill:currentColor}.tingle-modal__closeLabel{display:none}.tingle-modal__close:hover{color:#fff}.tingle-modal-box{position:relative;flex-shrink:0;margin-top:auto;margin-bottom:auto;width:60%;border-radius:4px;background:#fff;opacity:1;cursor:auto;will-change:transform,opacity}.tingle-modal-box__content{padding:3rem 3rem}.tingle-modal-box__footer{padding:1.5rem 2rem;width:auto;border-bottom-right-radius:4px;border-bottom-left-radius:4px;background-color:#f5f5f5;cursor:auto}.tingle-modal-box__footer::after{display:table;clear:both;content:""}.tingle-modal-box__footer--sticky{position:fixed;bottom:-200px;z-index:10001;opacity:1;transition:bottom .3s ease-in-out .3s}.tingle-enabled{position:fixed;right:0;left:0;overflow:hidden}.tingle-modal--visible .tingle-modal-box__footer{bottom:0}.tingle-enabled .tingle-content-wrapper{filter:blur(8px)}.tingle-modal--visible{visibility:visible;opacity:1}.tingle-modal--visible .tingle-modal-box{animation:scale .2s cubic-bezier(.68,-.55,.265,1.55) forwards}.tingle-modal--overflow{overflow-y:scroll;padding-top:8vh}.tingle-btn{display:inline-block;margin:0 .5rem;padding:1rem 2rem;border:none;background-color:grey;box-shadow:none;color:#fff;vertical-align:middle;text-decoration:none;font-size:inherit;font-family:inherit;line-height:normal;cursor:pointer;transition:background-color .4s ease}.tingle-btn--primary{background-color:#3498db}.tingle-btn--danger{background-color:#e74c3c}.tingle-btn--default{background-color:#34495e}.tingle-btn--pull-left{float:left}.tingle-btn--pull-right{float:right}@media (max-width :540px){.tingle-modal{top:0;display:block;padding-top:60px;width:100%}.tingle-modal-box{width:auto;border-radius:0}.tingle-modal-box__content{overflow-y:scroll}.tingle-modal--noClose{top:0}.tingle-modal--noOverlayClose{padding-top:0}.tingle-modal-box__footer .tingle-btn{display:block;float:none;margin-bottom:1rem;width:100%}.tingle-modal__close{top:0;right:0;left:0;display:block;width:100%;height:60px;border:none;background-color:#2c3e50;box-shadow:none;color:#fff}.tingle-modal__closeLabel{display:inline-block;vertical-align:middle;font-size:1.6rem;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",sans-serif}.tingle-modal__closeIcon{display:inline-block;margin-right:.8rem;width:1.6rem;vertical-align:middle;font-size:0}}@supports ((-webkit-backdrop-filter:blur(12px)) or (backdrop-filter:blur(12px))){.tingle-modal:before{position:fixed;top:0;right:0;bottom:0;left:0;content:"";-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}.tingle-enabled .tingle-content-wrapper{filter:none}}@keyframes scale{0%{opacity:0;transform:scale(.9)}100%{opacity:1;transform:scale(1)}}
 </style>

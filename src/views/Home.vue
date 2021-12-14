@@ -1,13 +1,16 @@
 <template>
   <StatistikenHeader @change="haderUpdate()" ref="header" />
 
-  <GameOverview class="statGrupe" :webcode="webcode" ></GameOverview>
+  <GameOverview class="statGrupe" :webcode="webcode"/>
+  <Maps class="statGrupe" />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import StatistikenHeader from "@/components/StatistikenHeader.vue"; // @ is an alias to /src
 import GameOverview from "@/components/GameOverview.vue";
+import Maps from "@/components/Maps.vue";
+
 import { onMounted, ref } from "vue";
 
 export default defineComponent({
@@ -15,6 +18,7 @@ export default defineComponent({
   components: {
     StatistikenHeader,
     GameOverview,
+    Maps
   },
 
   setup() {
