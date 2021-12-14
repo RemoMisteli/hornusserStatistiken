@@ -21,7 +21,8 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import axios from "axios";
- 
+import { onMounted,ref,  } from "vue";
+
 export default defineComponent({
   name: "StatistikenHeader",
   props: {},
