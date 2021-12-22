@@ -1,40 +1,59 @@
 <template>
-  <div class="container stat titelStatGroup">
+  <div class="container stat titelStatGroup maps">
     <h4>Karten</h4>
     <div class="choseStatistik row">
       <div class="statistik col selected" @click="choose('MSML')" id="MSML">
         Karte
       </div>
-      
+      <div
+        class="statistik col selected"
+        @click="choose('MSMLOMV')"
+        id="MSMLOMV"
+      >
+        Karte 2
+      </div>
+       <div
+        class="statistik col selected"
+        @click="choose('MOVPV')"
+        id="MOVPV"
+      >
+        Karte nach Verband
+      </div>
     </div>
-    <!--<MapLocationsOrderLiga :webcode="webcode" v-if="display['MSML']" />-->
-    
-
-
-
+    <iframe
+      src="https://hgverwaltung.ch/embed/1/map.html"
+      style="width: 100%; height: 400px"
+      v-if="display['MSML']"
+    ></iframe>
+    <iframe
+      src="https://hgverwaltung.ch/embed/1/mapopen.html"
+      style="width: 100%; height: 400px"
+      v-if="display['MSMLOMV']"
+    ></iframe>
+    <iframe
+      src="https://hgverwaltung.ch/embed/1/mapverbaende.html"
+      style="width: 100%; height: 400px"
+      v-if="display['MOVPV']"
+    ></iframe>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import { onMounted, ref } from "vue";
-import MapLocationsOrderLiga from "./statistiken/Maps/MapLocationsOrderLiga.vue";
-
 
 export default {
   name: "Map",
   props: ["webcode"],
-  components: { /*MapLocationsOrderLiga*/ },
+  components: {
+  },
   setup(props: any) {
     var display: any = ref([]);
 
     var setDisplayValues = (idToSetTrue: string) => {
       display.value["MSML"] = false;
-     
-
-
-
-
+      display.value["MSMLOMV"] = false;
+      display.value["MOVPV"] = false;
 
       display.value[idToSetTrue] = true;
     };
@@ -68,8 +87,7 @@ export default {
   text-align: center;
   font-weight: bold;
   cursor: pointer;
-      border-top: solid 2px rgb(163 163 163);
-
+  border-top: solid 2px rgb(163 163 163);
 }
 .stat {
   border: solid 2px rgb(163 163 163);
@@ -77,9 +95,10 @@ export default {
 .selected {
   background: rgba(128, 128, 128, 0.5);
 }
-.titelStatGroup{
+.titelStatGroup {
   font-weight: bold;
-
-  
+}
+.maps {
+  min-height: 250px;
 }
 </style>
