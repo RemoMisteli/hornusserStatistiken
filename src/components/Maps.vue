@@ -69,7 +69,6 @@ export default {
       }
       setDisplayValues(id);
     };
-
     return {
       choose,
       display,
