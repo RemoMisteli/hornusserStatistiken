@@ -310,13 +310,13 @@ td.hg_number.plus {
 }
 
 #hg_data td.nachnameDiagram {
-  width: 150px;
+/*  width: 150px;*/
   text-decoration: underline;
   text-decoration-color: gray;
 }
 
 #hg_data td.vornameDiagram {
-  width: 150px;
+ /*width: 150px;*/
   text-decoration: underline;
   text-decoration-color: gray;
 }

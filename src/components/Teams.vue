@@ -1,5 +1,5 @@
 <template>
-  <div class=" stat titelStatGroup">
+  <div class="stat titelStatGroup">
     <h4>Mannschaft</h4>
     <div class="choseStatistik row">
       <div class="statistik col selected" @click="choose('AV')" id="AV">
@@ -24,7 +24,16 @@
         Entwicklung Durchschnitt +
       </div>
       <div class="statistik col" @click="choose('ATOY')" id="ATOY">
-        Entwicklung Durchschnitt +
+        Entwiklung Durchschnitt über 5 Jahre
+      </div>
+      <div class="statistik col" @click="choose('ATOS')" id="ATOS">
+        Entwiklung Durchschnitt Saison
+      </div>
+      <div class="statistik col" @click="choose('ATLTG')" id="ATLTG">
+        Durchschnitt lezte 3 Spiele
+      </div>
+      <div class="statistik col" @click="choose('ATLTGG')" id="ATLTGG">
+        Durchschnitt lezte 3 gespielten Spiele
       </div>
     </div>
     <Avrages :webcode="webcode" v-if="display['AV']" />
@@ -38,6 +47,12 @@
     <AvrageTeamAllTime :webcode="webcode" v-if="display['ATAT']" />
     <AvrageTeamAllTimeWhitDiagram :webcode="webcode" v-if="display['ATATWD']" />
     <AvrageTeamOverYears :webcode="webcode" v-if="display['ATOY']" />
+    <AvrageTeamOverSaison :webcode="webcode" v-if="display['ATOS']" />
+    <AvrageTeamLastThreeGames :webcode="webcode" v-if="display['ATLTG']" />
+    <AvrageTeamLastThreeGamedGames
+      :webcode="webcode"
+      v-if="display['ATLTGG']"
+    />
   </div>
 </template>
 
@@ -52,6 +67,9 @@ import AvrageTeamAll from "./statistiken/Teams/AvrageTeamAll.vue";
 import AvrageTeamAllTime from "./statistiken/Teams/AvrageTeamAllTime.vue";
 import AvrageTeamAllTimeWhitDiagram from "./statistiken/Teams/AvrageTeamAllTimeWhitDiagram.vue";
 import AvrageTeamOverYears from "./statistiken/Teams/AvrageTeamOverYears.vue";
+import AvrageTeamOverSaison from "./statistiken/Teams/AvrageTeamOverSaison.vue";
+import AvrageTeamLastThreeGames from "./statistiken/Teams/AvrageTeamLastThreeGames.vue";
+import AvrageTeamLastThreeGamedGames from "./statistiken/Teams/AvrageTeamLastThreeGamedGames.vue";
 
 export default {
   name: "Teams",
@@ -65,6 +83,9 @@ export default {
     AvrageTeamAllTime,
     AvrageTeamAllTimeWhitDiagram,
     AvrageTeamOverYears,
+    AvrageTeamOverSaison,
+    AvrageTeamLastThreeGames,
+    AvrageTeamLastThreeGamedGames
   },
   setup(props: any) {
     var display: any = ref([]);
@@ -78,6 +99,9 @@ export default {
       display.value["ATAT"] = false;
       display.value["ATATWD"] = false;
       display.value["ATOY"] = false;
+      display.value["ATOS"] = false;
+      display.value["ATLTG"] = false;
+      display.value["ATLTGG"] = false;
 
       display.value[idToSetTrue] = true;
     };
