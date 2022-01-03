@@ -1,5 +1,5 @@
 <template>
-  <div class="container stat titelStatGroup">
+  <div class=" stat titelStatGroup">
     <h4>Übersicht Spiele</h4>
     <div class="choseStatistik row">
       <div class="statistik col selected" @click="choose('GOGDS')" id="GOGDS">
@@ -96,18 +96,15 @@ export default {
   text-align: center;
   font-weight: bold;
   cursor: pointer;
-      border-top: solid 2px rgb(163 163 163);
-
+  border-top: solid 2px rgb(163 163 163);
 }
 .stat {
-  border: solid 2px rgb(163 163 163);
+  text-align: center;
 }
 .selected {
   background: rgba(128, 128, 128, 0.5);
 }
-.titelStatGroup{
+.titelStatGroup {
   font-weight: bold;
-
-  
 }
 </style>

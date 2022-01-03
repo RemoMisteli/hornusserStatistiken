@@ -1,7 +1,7 @@
 <template>
   <StatistikenHeader @change="haderUpdate()" ref="header" ></StatistikenHeader>
-<div class="stats">
- <div class="container stat titelStatGroup">
+<div>
+ <div class="container-fluid	 stat titelStatGroup">
   
     <div class="choseStatistik row">
       <div class="statistik col selectedH" @click="choose('GameOverview')" id="GameOverview">
@@ -96,8 +96,7 @@ export default defineComponent({
 .statGruppe {
   margin-top: 30px;
 }
-.stats {
-}
+
 .choseStatistik {
   border-bottom: solid 2px rgb(163 163 163);
 }
@@ -108,9 +107,7 @@ export default defineComponent({
       border-top: solid 2px rgb(163 163 163);
 
 }
-.stat {
-  border: solid 2px rgb(163 163 163);
-}
+
 .selectedH {
   background: rgba(128, 128, 128, 0.5);
 }

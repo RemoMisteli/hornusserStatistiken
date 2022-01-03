@@ -1,5 +1,5 @@
 <template>
-  <div class="container stat titelStatGroup maps">
+  <div class=" stat titelStatGroup maps">
     <h4>Karten</h4>
     <div class="choseStatistik row">
       <div class="statistik col selected" @click="choose('MSML')" id="MSML">
@@ -89,7 +89,7 @@ export default {
   border-top: solid 2px rgb(163 163 163);
 }
 .stat {
-  border: solid 2px rgb(163 163 163);
+  text-align: center;
 }
 .selected {
   background: rgba(128, 128, 128, 0.5);
