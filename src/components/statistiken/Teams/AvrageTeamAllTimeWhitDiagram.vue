@@ -1,26 +1,21 @@
 <template>
+  <select id="hg_teamSelect" size="3" multiple></select>
+  <span id="hg_alle">
+    <input type="radio" name="alle" value="1" checked />Alle Spiele
+    <input type="radio" name="alle" value="0" />Nur Meisterschaft
+  </span>
 
-<select id="hg_teamSelect" size="3" multiple></select>
-<span id="hg_alle">
-	<input type="radio" name="alle" value="1" checked>Alle Spiele
-	<input type="radio" name="alle" value="0">Nur Meisterschaft
-</span>
+  <table id="hg_data" style="display: none">
+    <thead>
+      <tr id="hg_header"></tr>
+    </thead>
+    <tbody id="hg_list" class="hg_list"></tbody>
+    <tfoot></tfoot>
+  </table>
 
-<table id="hg_data" style="display: none;">
-	<thead>
-		<tr id="hg_header">
-		</tr>
-	</thead>
-	<tbody id="hg_list" class="hg_list">
-	</tbody>
-	<tfoot>
-	</tfoot>
-</table>
-
-<table style="display: none;">
-	<tr id="hg_tr_template">
-	</tr>
-</table>
+  <table style="display: none">
+    <tr id="hg_tr_template"></tr>
+  </table>
 </template>
 
 <script lang="js">
@@ -307,89 +302,88 @@ function loadStatistik(){
 };
 </script>
 <style>
-td.hg_number.minus{
-			background-color: lightcoral;
-
+td.hg_number.minus {
+  background-color: lightcoral;
 }
 td.hg_number.plus {
-		background-color: lightgreen;
-	}
+  background-color: lightgreen;
+}
 
-	#hg_data td.nachnameDiagram {
-		width: 150px;
-		text-decoration: underline;
-		text-decoration-color: gray;
-	}
+#hg_data td.nachnameDiagram {
+  width: 150px;
+  text-decoration: underline;
+  text-decoration-color: gray;
+}
 
-	#hg_data td.vornameDiagram {
-		width: 150px;
-		text-decoration: underline;
-		text-decoration-color: gray;
-	}
+#hg_data td.vornameDiagram {
+  width: 150px;
+  text-decoration: underline;
+  text-decoration-color: gray;
+}
 </style>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #hg_teamSelect,
-	#hg_data,
-	#hg_alle {
-				    width: 100%;
+#hg_data,
+#hg_alle {
+  width: 100%;
 
-		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-	}
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
 
-	#hg_alle,
-	#hg_alle input {
-		vertical-align: top;
-	}
+#hg_alle,
+#hg_alle input {
+  vertical-align: top;
+}
 
-	#hg_data tbody tr:nth-child(odd) {
-		background-color: #ebeff4;
-	}
+#hg_data tbody tr:nth-child(odd) {
+  background-color: #ebeff4;
+}
 
-	#hg_data td.hg_number.plus {
-		background-color: lightgreen;
-	}
+#hg_data td.hg_number.plus {
+  background-color: lightgreen;
+}
 
-	#hg_data td.hg_number.minus {
-		background-color: lightcoral;
-	}
+#hg_data td.hg_number.minus {
+  background-color: lightcoral;
+}
 
-	#hg_data tr {
-		text-align: left;
-	}
+#hg_data tr {
+  text-align: left;
+}
 
-	#hg_data th {
-		cursor: default;
-	}
+#hg_data th {
+  cursor: default;
+}
 
-	#hg_data .hg_number {
-		text-align: right;
-		padding-right: 5px;
-		padding-left: 5px;
-	}
+#hg_data .hg_number {
+  text-align: right;
+  padding-right: 5px;
+  padding-left: 5px;
+}
 
-	#hg_data td.nachname {
-		width: 150px;
-		text-decoration: underline;
-		text-decoration-color: gray;
-	}
+#hg_data td.nachname {
+  width: 150px;
+  text-decoration: underline;
+  text-decoration-color: gray;
+}
 
-	#hg_data td.vorname {
-		width: 150px;
-		text-decoration: underline;
-		text-decoration-color: gray;
-	}
+#hg_data td.vorname {
+  width: 150px;
+  text-decoration: underline;
+  text-decoration-color: gray;
+}
 
-	#hg_data .sort.asc::after {
-		content: "\25b2";
-	}
+#hg_data .sort.asc::after {
+  content: "\25b2";
+}
 
-	#hg_data .sort.desc::after {
-		content: "\25bc";
-	}
+#hg_data .sort.desc::after {
+  content: "\25bc";
+}
 
-	#hg_total_tr td {
-		font-weight: bold;
-	}
-
+#hg_total_tr td {
+  font-weight: bold;
+}
 </style>

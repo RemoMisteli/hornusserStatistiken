@@ -20,8 +20,11 @@
       <div class="statistik col" @click="choose('ATAT')" id="ATAT">
         Entwicklung Durchschnitt
       </div>
-          <div class="statistik col" @click="choose('ATATWD')" id="ATATWD">
-       Entwicklung Durchschnitt +
+      <div class="statistik col" @click="choose('ATATWD')" id="ATATWD">
+        Entwicklung Durchschnitt +
+      </div>
+      <div class="statistik col" @click="choose('ATOY')" id="ATOY">
+        Entwicklung Durchschnitt +
       </div>
     </div>
     <Avrages :webcode="webcode" v-if="display['AV']" />
@@ -33,8 +36,8 @@
     />
     <AvrageTeamAll :webcode="webcode" v-if="display['ATA']" />
     <AvrageTeamAllTime :webcode="webcode" v-if="display['ATAT']" />
-        <AvrageTeamAllTimeWhitDiagram :webcode="webcode" v-if="display['ATATWD']" />
-
+    <AvrageTeamAllTimeWhitDiagram :webcode="webcode" v-if="display['ATATWD']" />
+    <AvrageTeamOverYears :webcode="webcode" v-if="display['ATOY']" />
   </div>
 </template>
 
@@ -48,7 +51,7 @@ import AvrageTeamWhitChangeToLastYear from "./statistiken/Teams/AvrageTeamWhitCh
 import AvrageTeamAll from "./statistiken/Teams/AvrageTeamAll.vue";
 import AvrageTeamAllTime from "./statistiken/Teams/AvrageTeamAllTime.vue";
 import AvrageTeamAllTimeWhitDiagram from "./statistiken/Teams/AvrageTeamAllTimeWhitDiagram.vue";
-
+import AvrageTeamOverYears from "./statistiken/Teams/AvrageTeamOverYears.vue";
 
 export default {
   name: "Teams",
@@ -60,7 +63,8 @@ export default {
     AvrageTeamWhitChangeToLastYear,
     AvrageTeamAll,
     AvrageTeamAllTime,
-    AvrageTeamAllTimeWhitDiagram
+    AvrageTeamAllTimeWhitDiagram,
+    AvrageTeamOverYears,
   },
   setup(props: any) {
     var display: any = ref([]);
@@ -72,8 +76,8 @@ export default {
       display.value["ATWCTLY"] = false;
       display.value["ATA"] = false;
       display.value["ATAT"] = false;
-            display.value["ATATWD"] = false;
-
+      display.value["ATATWD"] = false;
+      display.value["ATOY"] = false;
 
       display.value[idToSetTrue] = true;
     };

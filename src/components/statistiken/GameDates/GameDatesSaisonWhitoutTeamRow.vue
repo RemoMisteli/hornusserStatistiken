@@ -142,6 +142,7 @@ function loadStatistik(){
     /* <![CDATA[ */
 	#hg_jahrSelect,
 	#hg_data {
+		width: 100%;
 		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 	}
 
