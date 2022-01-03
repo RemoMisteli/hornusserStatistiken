@@ -35,6 +35,9 @@
       <div class="statistik col" @click="choose('ATLTGG')" id="ATLTGG">
         Durchschnitt lezte 3 gespielten Spiele
       </div>
+        <div class="statistik col" @click="choose('N')" id="N">
+        Nummern übersicht
+      </div>
     </div>
     <Avrages :webcode="webcode" v-if="display['AV']" />
     <HitsDiagram :webcode="webcode" v-if="display['HD']" />
@@ -53,6 +56,10 @@
       :webcode="webcode"
       v-if="display['ATLTGG']"
     />
+     <Numbers
+      :webcode="webcode"
+      v-if="display['N']"
+    />
   </div>
 </template>
 
@@ -70,6 +77,7 @@ import AvrageTeamOverYears from "./statistiken/Teams/AvrageTeamOverYears.vue";
 import AvrageTeamOverSaison from "./statistiken/Teams/AvrageTeamOverSaison.vue";
 import AvrageTeamLastThreeGames from "./statistiken/Teams/AvrageTeamLastThreeGames.vue";
 import AvrageTeamLastThreeGamedGames from "./statistiken/Teams/AvrageTeamLastThreeGamedGames.vue";
+import Numbers from "./statistiken/Teams/Numbers.vue";
 
 export default {
   name: "Teams",
@@ -85,7 +93,8 @@ export default {
     AvrageTeamOverYears,
     AvrageTeamOverSaison,
     AvrageTeamLastThreeGames,
-    AvrageTeamLastThreeGamedGames
+    AvrageTeamLastThreeGamedGames,
+    Numbers
   },
   setup(props: any) {
     var display: any = ref([]);
@@ -102,6 +111,7 @@ export default {
       display.value["ATOS"] = false;
       display.value["ATLTG"] = false;
       display.value["ATLTGG"] = false;
+      display.value["N"] = false;
 
       display.value[idToSetTrue] = true;
     };
