@@ -158,8 +158,8 @@ function loadStatistik(){
 			results.forEach(function (row) {
 				row.datumDisplay = row.datum.substring(8, 10) + '.' + row.datum.substring(5, 7) + '.' + row.datum.substring(0, 4);
 				row.zeit = row.datum.substring(11);
-				row.spielLink = 'detail.html?spielId=' + row.id + '&club=' + club;
-				row.gegnerSpielLink = 'detail.html?gegner=1&spielId=' + row.id + '&club=' + club;
+				row.spielLink = 'https://hgverwaltung.ch/embed/1/detail.html?spielId=' + row.id + '&club=' + club;
+				row.gegnerSpielLink = 'https://hgverwaltung.ch/embed/1/detail.html?gegner=1&spielId=' + row.id + '&club=' + club;
 			});
 			dataList.add(results);
 

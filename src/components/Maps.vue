@@ -6,14 +6,14 @@
         Karte
       </div>
       <div
-        class="statistik col selected"
+        class="statistik col "
         @click="choose('MSMLOMV')"
         id="MSMLOMV"
       >
         Karte 2
       </div>
        <div
-        class="statistik col selected"
+        class="statistik col "
         @click="choose('MOVPV')"
         id="MOVPV"
       >
