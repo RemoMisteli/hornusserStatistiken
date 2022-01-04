@@ -10,13 +10,21 @@
    <div class="statistik col" @click="choose('Teams')" id="Teams">
         Mannschaft
       </div>
-    <div class="statistik col" @click="choose('Maps')" id="Maps">
+    <div class="statistik col" @click="choose('PlayerOverview')" id="PlayerOverview">
+        Spieler
+      </div>
+      <div class="statistik col" @click="choose('Maps')" id="Maps">
         Karten
+      </div>
+            <div class="statistik col" @click="choose('Calender')" id="Calender">
+        Kalender
       </div>
     </div>
   <GameOverview class="statGruppe" :webcode="webcode"  v-if="display['GameOverview']"/>
    <Teams class="statGruppe" :webcode="webcode"  v-if="display['Teams']"/>
+   <PlayerOverview class="statGruppe" :webcode="webcode"  v-if="display['PlayerOverview']"/>
     <Maps class="statGruppe"  v-if="display['Maps']"/>
+    <Calender class="statGruppe" :webcode="webcode"  v-if="display['Calender']"/>
 
 
    
@@ -30,7 +38,10 @@ import { defineComponent } from "vue";
 import StatistikenHeader from "@/components/StatistikenHeader.vue"; // @ is an alias to /src
 import GameOverview from "@/components/GameOverview.vue";
 import Teams from "@/components/Teams.vue";
+import PlayerOverview from "@/components/PlayerOverview.vue";
 import Maps from "@/components/Maps.vue";
+import Calender from "@/components/Calender.vue";
+
 
 import { onMounted, ref } from "vue";
 
@@ -40,7 +51,9 @@ export default defineComponent({
     StatistikenHeader,
     GameOverview,
     Teams,
-    Maps
+    PlayerOverview,
+    Maps,
+    Calender
   },
 
   setup() {
@@ -65,7 +78,9 @@ export default defineComponent({
     var setDisplayValues = (idToSetTrue: string) => {
       display.value["Teams"] = false;
       display.value["GameOverview"] = false;
+      display.value["PlayerOverview"] = false;
       display.value["Maps"] = false;
+      display.value["Calender"] = false;
 
       display.value[idToSetTrue] = true;
     };
