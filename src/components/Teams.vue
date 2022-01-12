@@ -24,10 +24,10 @@
         Entwicklung Durchschnitt +
       </div>
       <div class="statistik col" @click="choose('ATOY')" id="ATOY">
-        Entwiklung Durchschnitt über 5 Jahre
+        Entwicklung Durchschnitt über 5 Jahre
       </div>
       <div class="statistik col" @click="choose('ATOS')" id="ATOS">
-        Entwiklung Durchschnitt Saison
+        Entwicklung Durchschnitt Saison
       </div>
       <div class="statistik col" @click="choose('ATLTG')" id="ATLTG">
         Durchschnitt lezte 3 Spiele
