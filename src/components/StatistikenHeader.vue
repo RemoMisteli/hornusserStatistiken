@@ -4,14 +4,13 @@
     <div class="center">
       <h1>Hornusser Statistiken</h1>
       <p>Vereinsname</p>
-      <select v-model="club" @change="onChange()">
+      <select class="select" v-model="club" @change="onChange()">
         <option
           v-for="option in options"
           :value="option.webcode"
           :key="option.webcode"
-          
         >
-        {{option.vereinsname}}
+          {{ option.vereinsname }}
         </option>
       </select>
     </div>
@@ -21,7 +20,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import axios from "axios";
-import { onMounted,ref,  } from "vue";
+import { onMounted, ref } from "vue";
 
 export default defineComponent({
   name: "StatistikenHeader",
@@ -29,8 +28,8 @@ export default defineComponent({
   components: {},
   setup() {
     let options: any = ref([]);
-    let club:any=ref();
-     let selected:any=ref();
+    let club: any = ref();
+    let selected: any = ref();
 
     const http = axios.create({
       baseURL: "http://localhost:8080/api/",
@@ -43,22 +42,21 @@ export default defineComponent({
     var getClubs = async () => {
       const response = await http.get("/webcodes/");
       options.value = response.data;
-      console.log( options.value);
+      console.log(options.value);
     };
-    var onChange =()=>{
-        selected.value= club.value;
+    var onChange = () => {
+      selected.value = club.value;
+    };
 
-    }
-
-    const  getSeclectet=()=>{
+    const getSeclectet = () => {
       return selected.value;
-    }
+    };
 
     return {
       options,
       onChange,
       club,
-      getSeclectet
+      getSeclectet,
     };
   },
 });
@@ -71,5 +69,8 @@ export default defineComponent({
 }
 h1 {
   font-size: 40px;
+}
+.select {
+  margin-bottom: 10px;
 }
 </style>

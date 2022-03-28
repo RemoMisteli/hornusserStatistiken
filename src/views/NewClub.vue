@@ -53,6 +53,7 @@
 import { defineComponent } from "vue";
 import { ref } from "vue";
 import axios from "axios";
+import clubExist from "./general"
 
 export default defineComponent({
   name: "newClub",
@@ -68,7 +69,7 @@ export default defineComponent({
 
     var send = async () => {
       console.log(checkbox.value);
-      if (validateForm()) {
+      if (await validateForm()) {
         const response = await http.post(
           "/webcodes/?webcode=" +
             fieldWebcode.value +
@@ -106,8 +107,11 @@ export default defineComponent({
       checkbox.value = false;
     };
 
-    var validateForm = () => {
+    var validateForm =async () => {debugger
       let message = "";
+      if(await clubExist(fieldWebcode.value)){debugger
+        message+="Der Webcode ist ungültig";
+      }
       if (fieldVereinsname.value == "") {
         message += "Der Veriname muss ausgefült sein\n";
       }
@@ -119,7 +123,6 @@ export default defineComponent({
           "Du mussst einverstanden sein dass ander die Statistiken deines Vereines sehen können um einen Verein hinzuzufügen";
       }
       if (message == "") {
-        console.log("df");
         return true;
       }
       popup(message);

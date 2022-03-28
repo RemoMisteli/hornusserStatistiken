@@ -1,10 +1,5 @@
-module.exports ={
-    devServer: {
-        proxy:{
-        '^/api/':{
-            target:'http://localhost:80/hornusserstatistiken/api/',
-            changeOrigin: true,
-        }
-    }
-    }
+module.exports = {
+    publicPath: process.env.NODE_ENV === 'production'
+    ? '/hello-world/'
+    : '/'
 }
