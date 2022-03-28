@@ -43,7 +43,7 @@ export default defineComponent({
    //   const response = await http.get("/webcodes/");
      // options.value = response.data;
      // console.log(options.value);
-     options.value=["obergerlafingen", "biel"];
+     options.value=[{"webcode":"biel","vereinsname":"Biel"},{"webcode":"obergerlafingen","vereinsname":"Obergerlafingen"},{"webcode":"test","vereinsname":"Test"}];
     };
     var onChange = () => {
       selected.value = club.value;
