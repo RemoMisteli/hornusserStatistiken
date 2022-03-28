@@ -40,9 +40,10 @@ export default defineComponent({
     });
 
     var getClubs = async () => {
-      const response = await http.get("/webcodes/");
-      options.value = response.data;
-      console.log(options.value);
+   //   const response = await http.get("/webcodes/");
+     // options.value = response.data;
+     // console.log(options.value);
+     options.value=["obergerlafingen", "biel"];
     };
     var onChange = () => {
       selected.value = club.value;
