@@ -1,4 +1,5 @@
 <template>
+	<button @click="changeVariable(newValue)">Change Variable</button>
   <table id="hg_data" style="display: none">
     <thead>
       <tr>
@@ -49,6 +50,12 @@ export default {
       loadStatistik();
   
     });
+
+function changeVariable: function(newValue) {
+      // Change the variable when the button is clicked
+      console.log(newValue)
+    }
+	  
 function loadStatistik(){
 	var club =props.webcode;
 		if (!club) {
